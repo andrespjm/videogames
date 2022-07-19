@@ -1,11 +1,10 @@
 const { Router } = require("express");
-const { getVideogames } = require("../controllers/videogames.controllers.js");
+const { getGenres } = require("../controllers/genres.controller");
 const router = Router();
 
 router.get("/", async (req, res) => {
   try {
-    const videogames = await getVideogames();
-    res.json(videogames);
+    res.send(await getGenres());
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
