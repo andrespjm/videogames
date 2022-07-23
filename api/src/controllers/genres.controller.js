@@ -1,7 +1,7 @@
 require("dotenv").config();
 const { API_KEY } = process.env;
 const fetch = require("cross-fetch");
-const { Genres } = require("../db");
+const { Genresapi } = require("../db");
 
 const getGenres = async () => {
   const response = await fetch(`https://api.rawg.io/api/genres?key=${API_KEY}`);
@@ -10,7 +10,8 @@ const getGenres = async () => {
     throw new Error(message);
   }
   const genres = await response.json();
-  const genresDB = await Genres.bulkCreate(genres.results);
+  const genresDB = await Genresapi.bulkCreate(genres.results);
+
   return genresDB;
 };
 
