@@ -1,0 +1,27 @@
+.container{
+    display: grid;
+    gap: 10px;
+    grid-template-areas: 
+     "navbar"
+     "main"
+     "sidebar"
+     "footer"
+    ;
+    padding: 10px;
+}
+
+.navbar{
+    grid-area: navbar;
+}
+
+.main{
+    grid-area: main;
+}
+
+.sidebar{
+    grid-area: sidebar;
+}
+
+.footer{
+    grid-area: footer;
+}

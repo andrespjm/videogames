@@ -5,17 +5,14 @@
   color: snow;
   height: 100vh;
   width:100%;
-}
-
-
-.content{
-  font-family: 'Rubik Glitch', cursive;
-  text-align: center;
-}
-
+  /* overflow: hidden; */
+} 
 
 .glitch{
-  font-size: 5rem;
+  display: flex;
+  flex-direction: column;
+  font-size: 5em;
+  font-family: 'Rubik Glitch', cursive;
   text-transform: uppercase;
   text-shadow: 
    0.05em 0 0 rgba(255,0,0,.75),
@@ -23,6 +20,10 @@
    -0.025em 0.05em 0 rgba(0,0,255,.75);
 
   animation: glitch 700ms infinite;
+}
+
+.glitch > span{
+  text-align: center;
 }
 
 @keyframes glitch {
@@ -53,32 +54,50 @@
 }
 
 .logo{
-  background: url(../assets/img/logo.png) no-repeat center center;
+  display: flex;
   /* filter: hue-rotate(60deg) brightness(500%); */
   background-size: cover;
   margin: 0 auto;
-  width: 350px;
-  height: 350px;
+  width: 320px;
 }
 
-.enter{
+.logo > img {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.btnEnter{
   background-color: yellow;
   border-radius: 5px;
   color:rgb(53, 52, 52); 
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   text-decoration: none;
   padding: 10px;
   font-size: larger;
   width: 120px;
-  margin: 3rem auto;
+  margin: 2rem auto;
 }
 
-.enter:hover{
+.btnEnter:hover{
   background-color: rgb(232, 118, 69);
   color:white;
   cursor: default;
 }
 
+
+@media only screen and (max-width: 600px) {
+  .logo{
+    padding-top: 15%;
+    width:220px;
+  }
+  .glitch{
+    font-size: 2rem;
+    margin-top: 15%;
+  }
+  .btnEnter{
+    margin-top: 15%;
+  }
+}
 
