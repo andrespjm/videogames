@@ -1,0 +1,33 @@
+:root{
+    --text-color-home:snow;
+}
+
+
+.sidebar h1{
+    color: var(--text-color-home);
+    text-transform: capitalize;
+    border-bottom: 1px solid var(--text-color-home);
+}
+
+.sideMenu .subTitles{
+    color: var(--text-color-home);
+    margin-top: 15px;
+}
+
+.sideMenu {
+    display: flex;
+    flex-direction: column;
+}
+
+.sideMenu a{
+    color: var(--text-color-home);
+    font-size: 1.3em;
+    padding: 8px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.activated{
+    background-color: yellow;
+    color: #333 !important;
+}
