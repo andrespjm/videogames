@@ -2,7 +2,41 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 30px;
+    min-height:100vh;
 }
+
+.pagination{
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    padding: 18px;
+    margin-top: 50px;
+    width:100%;
+}
+
+.pagination button{
+    background-color: #202020;
+    border-radius:10px;
+    color: snow;
+    display:flex;
+    justify-content:center;
+    align-items: center;
+    padding:8px;
+    width: 100px;
+}
+
+.pagination button:hover{
+    background-color: #333;
+}
+
+.pagination button:first-child{
+    margin-right: 15px;
+}
+
+.pagination button:last-child{
+    margin-left: 15px;
+}
+
 
 .sectioName{
     color:snow;

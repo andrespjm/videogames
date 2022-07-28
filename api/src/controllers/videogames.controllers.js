@@ -21,30 +21,42 @@ const searchVideogamesDB = async name => {
 	return getVideogames;
 };
 
-const getVideogames = async (name, page, size) => {
+const getVideogames = async totalLimit => {
 	// const section = +page * +size;
 	// const offset = section + +size;
 	const section = 0;
 	let totalResults = [];
 
+	// const response = await fetch(
+	// 	`https://api.rawg.io/api/games?key=${API_KEY}&page=${
+	// 		+page + 1
+	// 	}&search=${encodeURI(name)}`
+	// );
 	const response = await fetch(
-		`https://api.rawg.io/api/games?key=${API_KEY}&page=${
-			+page + 1
-		}&search=${encodeURI(name)}`
+		`https://api.rawg.io/api/games?key=${API_KEY}&page_size=${totalLimit}`
 	);
 	if (!response.ok) {
 		const message = `An error has occured: ${response.status}`;
 		throw new Error(message);
 	}
 	const videogames = await response.json();
-	const videogamesDB = await searchVideogamesDB(name);
-	totalResults = [...videogamesDB, ...videogames.results];
-	// const pagination = videogames.results.slice(section, size);
-	const pagination = totalResults.slice(section, size);
+	const videogamesDB = await Videogame.findAll({
+		include: [
+			{
+				model: Genres,
+				as: 'genres',
+			},
+		],
+	});
+	if (!videogamesDB.length) {
+		totalResults = videogames.results;
+	} else {
+		totalResults = [...videogamesDB, ...videogames.results];
+	}
 
-	if (!pagination.length)
-		throw new Error('No se ha encontrado vidojuegos con ese nombre');
-	return pagination;
+	if (!videogames.results.length)
+		throw new Error('Ha ocurrido un erro inesperado con la api');
+	return totalResults;
 };
 
 const getVideogameById = async id => {

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Card } from '../card/Card';
 import { Loader } from '../loader/Loader';
 import styles from './main.module.css';
+import { FaAngleRight, FaAngleLeft } from 'react-icons/fa';
 
 export const Main = ({ videogames }) => {
 	return (
@@ -22,6 +23,15 @@ export const Main = ({ videogames }) => {
 					</Link>
 				))}
 			</section>
+			<div className={styles.pagination}>
+				<button>
+					<FaAngleLeft size={18} />
+					Previews
+				</button>
+				<button>
+					Next <FaAngleRight size={18} />
+				</button>
+			</div>
 		</article>
 	);
 };

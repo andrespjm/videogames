@@ -1,6 +1,6 @@
 import styles from './card.module.css';
 // import { FaStar, FaLaptop, FaXbox, FaPlaystation } from 'react-icons/fa';
-import { FaStar } from 'react-icons/fa';
+import { FaStar, FaGamepad } from 'react-icons/fa';
 // import { SiNintendo } from 'react-icons/si';
 
 export const Card = props => {
@@ -17,7 +17,9 @@ export const Card = props => {
 				style={{ backgroundImage: `url(${props.image})` }}
 			></div>
 			<div className={styles.description}>
-				<h2>{props.name}</h2>
+				<h2>
+					<FaGamepad /> {props.name}
+				</h2>
 				<div className={styles.data}>
 					<b>Release date:</b>
 					<span>{props.released}</span>
