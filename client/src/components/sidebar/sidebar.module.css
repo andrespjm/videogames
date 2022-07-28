@@ -2,12 +2,28 @@
     --text-color-home:snow;
 }
 
+.sidebar{
+    padding: 0 20px;
+}
 
 .sidebar h1{
     color: var(--text-color-home);
     text-transform: capitalize;
     border-bottom: 1px solid var(--text-color-home);
 }
+
+.sidebar .links{
+    background-color: #202020;
+    margin: 2px 0;
+    padding:18px;
+    border-radius: 10px;
+}
+
+.sidebar .links:hover{
+    background-color:#333;
+}
+
+
 
 .sideMenu .subTitles{
     color: var(--text-color-home);
@@ -30,4 +46,8 @@
 .activated{
     background-color: yellow;
     color: #333 !important;
+}
+
+.activated {
+    border: 1px solid #f0f0f0
 }
