@@ -21,25 +21,18 @@ const searchVideogamesDB = async name => {
 	return getVideogames;
 };
 
-const getVideogames = async totalLimit => {
-	// const section = +page * +size;
-	// const offset = section + +size;
-	const section = 0;
-	let totalResults = [];
-
-	// const response = await fetch(
-	// 	`https://api.rawg.io/api/games?key=${API_KEY}&page=${
-	// 		+page + 1
-	// 	}&search=${encodeURI(name)}`
-	// );
-	const response = await fetch(
-		`https://api.rawg.io/api/games?key=${API_KEY}&page_size=${totalLimit}`
-	);
-	if (!response.ok) {
-		const message = `An error has occured: ${response.status}`;
-		throw new Error(message);
+const getVideogames = async () => {
+	let promisesLoop = [];
+	const page = 5;
+	for (let i = 0; i < page; i++) {
+		const res = await fetch(
+			`https://api.rawg.io/api/games?key=${API_KEY}&page=${i + 1}`
+		);
+		promisesLoop[i] = await res.json();
 	}
-	const videogames = await response.json();
+	const promises_ = await Promise.all(promisesLoop);
+	const videogames = promises_.flatMap(value => [...value.results]);
+
 	const videogamesDB = await Videogame.findAll({
 		include: [
 			{
@@ -49,14 +42,12 @@ const getVideogames = async totalLimit => {
 		],
 	});
 	if (!videogamesDB.length) {
-		totalResults = videogames.results;
+		totalResults = videogames;
 	} else {
-		totalResults = [...videogamesDB, ...videogames.results];
+		totalResults = [...videogamesDB, ...videogames];
 	}
 
-	if (!videogames.results.length)
-		throw new Error('Ha ocurrido un erro inesperado con la api');
-	return totalResults;
+	return videogames;
 };
 
 const getVideogameById = async id => {

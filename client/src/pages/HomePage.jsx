@@ -6,22 +6,26 @@ import './home.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllGenres, getVideogames } from '../redux/actions';
 import { useEffect } from 'react';
+import { DataProvider } from '../context/DataContext';
 
 export const HomePage = () => {
 	const genres = useSelector(state => state.genres);
-	const videogames = useSelector(state => state.videogames);
+
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(getAllGenres());
 		dispatch(getVideogames());
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
 	return (
-		<main className='container'>
-			<Navigation />
-			<Sidebar genres={genres} />
-			<Main videogames={videogames} />
-			<Footer />
-		</main>
+		<DataProvider>
+			<main className='container'>
+				<Navigation />
+				<Sidebar genres={genres} />
+				<Main />
+				<Footer />
+			</main>
+		</DataProvider>
 	);
 };

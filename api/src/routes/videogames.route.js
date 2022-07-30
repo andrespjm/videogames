@@ -8,9 +8,7 @@ const router = Router();
 
 router.get('/', async (req, res) => {
 	try {
-		const totalLimit = 100;
-
-		const videogames = await getVideogames(totalLimit);
+		const videogames = await getVideogames();
 
 		res.send(videogames);
 	} catch (err) {
