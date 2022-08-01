@@ -6,14 +6,29 @@ import { Loader } from '../loader/Loader';
 import { Paginator } from '../paginator/Paginator';
 import styles from './main.module.css';
 
+const VIDEOGAMES_PER_PAGE = 15;
+// TODO:Es mejor mejor dejar de trabajar con context
 export const Main = () => {
-	const { paginatedVideogames } = useContext(DataContext);
+	const { allVideogames, currentPage, setCurrentPage } =
+		useContext(DataContext);
+	const paginatedVideogames = allVideogames().slice(
+		currentPage,
+		currentPage + VIDEOGAMES_PER_PAGE
+	);
+	const prevPage = () => {
+		if (currentPage > 0) setCurrentPage(currentPage - VIDEOGAMES_PER_PAGE);
+	};
+	const nextPage = () => {
+		if (currentPage + VIDEOGAMES_PER_PAGE < allVideogames().length)
+			setCurrentPage(currentPage + VIDEOGAMES_PER_PAGE);
+	};
+
 	return (
 		<article className='main'>
 			<h1 className={styles.sectioName}>Trending now</h1>
-			{!paginatedVideogames().length && <Loader />}
+			{!paginatedVideogames.length && <Loader />}
 			<section className={styles.content}>
-				{paginatedVideogames().map(videogame =>
+				{paginatedVideogames.map(videogame =>
 					!videogame.name ? (
 						<p style={{ color: 'snow' }} key='error'>
 							{videogame}
@@ -32,7 +47,7 @@ export const Main = () => {
 					)
 				)}
 			</section>
-			<Paginator />
+			<Paginator prevPage={prevPage} nextPage={nextPage} />
 		</article>
 	);
 };

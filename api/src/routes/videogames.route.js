@@ -8,8 +8,8 @@ const router = Router();
 
 router.get('/', async (req, res) => {
 	try {
-		const videogames = await getVideogames();
-
+		const { name } = req.query;
+		const videogames = await getVideogames(name);
 		res.send(videogames);
 	} catch (err) {
 		res.status(400).json({ error: err.message });

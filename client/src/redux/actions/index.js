@@ -19,9 +19,10 @@ export const getAllGenres = () => {
 	};
 };
 
-export const getVideogames = () => {
+export const getVideogames = name => {
+	let query = name || '';
 	return async dispatch => {
-		const res = await fetch('http://localhost:3001/videogames');
+		const res = await fetch('http://localhost:3001/videogames?name=' + query);
 		if (!res.ok) showError(res.status);
 		const data = await res.json();
 		dispatch({

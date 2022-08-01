@@ -10,7 +10,6 @@ import { DataProvider } from '../context/DataContext';
 
 export const HomePage = () => {
 	const genres = useSelector(state => state.genres);
-
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(getAllGenres());

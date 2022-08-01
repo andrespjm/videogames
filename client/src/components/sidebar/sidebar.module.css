@@ -19,8 +19,9 @@
     border-radius: 10px;
 }
 
-.sidebar .links:hover{
-    background-color:#333;
+.actived, .sidebar .links:hover{
+    background-color:#333 !important;
+    border: 1px solid #f0f0f0
 }
 
 
@@ -43,11 +44,4 @@
     text-decoration: none;
 }
 
-.activated{
-    background-color: yellow;
-    color: #333 !important;
-}
 
-.activated {
-    border: 1px solid #f0f0f0
-}

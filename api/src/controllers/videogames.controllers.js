@@ -20,8 +20,25 @@ const searchVideogamesDB = async name => {
 	});
 	return getVideogames;
 };
+const searchAllVideogames = async name => {
+	let games = [];
+	const res = await fetch(
+		`https://api.rawg.io/api/games?key=${API_KEY}&search=${name}`
+	);
+	if (!res.ok) throw new Error(`Has occured an error: ${res.status}`);
+	const videogames = await res.json();
 
-const getVideogames = async () => {
+	if (!searchVideogamesDB(name).length) {
+		games = videogames.results;
+	} else {
+		games = [...searchVideogamesDB(), ...videogames.results];
+	}
+	return games;
+};
+const getVideogames = async name => {
+	if (name) {
+		return searchAllVideogames(name);
+	}
 	let promisesLoop = [];
 	const page = 5;
 	for (let i = 0; i < page; i++) {
@@ -47,7 +64,7 @@ const getVideogames = async () => {
 		totalResults = [...videogamesDB, ...videogames];
 	}
 
-	return videogames;
+	return totalResults;
 };
 
 const getVideogameById = async id => {
