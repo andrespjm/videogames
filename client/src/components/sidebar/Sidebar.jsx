@@ -1,21 +1,32 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import styles from './sidebar.module.css';
 import spinner from '../../assets/img/Spin-200px.gif';
-import { useContext, useState } from 'react';
-import { DataContext } from '../../context/DataContext';
+import { useState } from 'react';
+import { getVideogames } from '../../redux/actions';
+import { useDispatch } from 'react-redux';
 
-export const Sidebar = ({ genres }) => {
+export const Sidebar = ({
+	genres,
+	setGenreName,
+	setCurrentPage,
+	setInputValue,
+}) => {
 	const [linkName, setLinkName] = useState('All genres');
 	const pathname_ = window.location.pathname;
 	const section = pathname_.slice(1);
-	const { setFilterVideogames, setCurrentPage } = useContext(DataContext);
+	const dispatch = useDispatch();
 
 	const handleStatus = e => {
 		e.preventDefault();
-		setCurrentPage(0);
 		const { text } = e.target;
 		setLinkName(text);
-		setFilterVideogames(text);
+		setCurrentPage(0);
+		setInputValue('');
+		if (text === 'All genres') {
+			return setGenreName('');
+		}
+		dispatch(getVideogames());
+		return setGenreName(text);
 	};
 
 	return (

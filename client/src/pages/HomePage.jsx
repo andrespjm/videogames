@@ -5,26 +5,65 @@ import { Navigation } from '../components/navbar/Navbar';
 import './home.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllGenres, getVideogames } from '../redux/actions';
-import { useEffect } from 'react';
-import { DataProvider } from '../context/DataContext';
+import { useEffect, useState } from 'react';
+
+const VIDEOGAMES_PER_PAGE = 15;
 
 export const HomePage = () => {
+	const [currentPage, setCurrentPage] = useState(0);
+	const [genreName, setGenreName] = useState('');
+	const [inputValue, setInputValue] = useState('');
+
 	const genres = useSelector(state => state.genres);
+	const allVideogames = useSelector(state => state.videogames);
 	const dispatch = useDispatch();
+
 	useEffect(() => {
 		dispatch(getAllGenres());
 		dispatch(getVideogames());
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
+	const filteredVideogames = () => {
+		if (genreName) {
+			const gamesPerGenre = allVideogames.filter(game =>
+				game.genres.find(genre => genre.name === genreName)
+			);
+
+			// return paginator(gamesPerGenre);
+			return gamesPerGenre;
+		}
+		// return paginator(videogames);
+		return allVideogames;
+	};
+
+	const videogames = () =>
+		filteredVideogames().slice(currentPage, currentPage + VIDEOGAMES_PER_PAGE);
+
+	const prevPage = () => {
+		if (currentPage > 0) setCurrentPage(currentPage - VIDEOGAMES_PER_PAGE);
+	};
+	const nextPage = () => {
+		if (currentPage + VIDEOGAMES_PER_PAGE < filteredVideogames().length)
+			setCurrentPage(currentPage + VIDEOGAMES_PER_PAGE);
+	};
+
 	return (
-		<DataProvider>
-			<main className='container'>
-				<Navigation />
-				<Sidebar genres={genres} />
-				<Main />
-				<Footer />
-			</main>
-		</DataProvider>
+		<main className='container'>
+			<Navigation
+				setCurrentPage={setCurrentPage}
+				setGenreName={setGenreName}
+				inputValue={inputValue}
+				setInputValue={setInputValue}
+			/>
+			<Sidebar
+				genres={genres}
+				setGenreName={setGenreName}
+				setCurrentPage={setCurrentPage}
+				setInputValue={setInputValue}
+			/>
+			<Main videogames={videogames} prevPage={prevPage} nextPage={nextPage} />
+			<Footer />
+		</main>
 	);
 };
