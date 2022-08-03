@@ -29,7 +29,7 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
 	try {
 		await createNewVideogame(req);
-		res.send('¡Videojuego creado exitosamente!');
+		res.json('¡Videojuego creado exitosamente!');
 	} catch (err) {
 		res.status(400).json({ error: err.message });
 	}

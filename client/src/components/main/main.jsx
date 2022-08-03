@@ -42,13 +42,13 @@ export const Main = ({ videogames, prevPage, nextPage, setSort }) => {
 			</div>
 			{!videogames().length && <Loader />}
 			<section className={styles.content}>
-				{videogames().map(videogame =>
+				{videogames().map((videogame, i) =>
 					!videogame.name ? (
 						<p style={{ color: 'snow' }} key='error'>
 							{videogame}
 						</p>
 					) : (
-						<Link to='/' key={videogame.slug}>
+						<Link to='/' key={i}>
 							<Card
 								name={videogame.name}
 								image={videogame.background_image}

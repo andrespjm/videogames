@@ -21,19 +21,18 @@ const searchVideogamesDB = async name => {
 	return getVideogames;
 };
 const searchAllVideogames = async name => {
-	let games = [];
 	const res = await fetch(
 		`https://api.rawg.io/api/games?key=${API_KEY}&search=${name}`
 	);
 	if (!res.ok) throw new Error(`Has occured an error: ${res.status}`);
 	const videogames = await res.json();
-
-	if (!searchVideogamesDB(name).length) {
-		games = videogames.results;
-	} else {
-		games = [...searchVideogamesDB(), ...videogames.results];
-	}
-	return games;
+	const query = await searchVideogamesDB(name);
+	// if (!query.length) {
+	// 	games = videogames.results;
+	// } else {
+	// 	games = [...query, ...videogames.results];
+	// }
+	return [...query, ...videogames.results];
 };
 const getVideogames = async name => {
 	if (name) {

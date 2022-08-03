@@ -6,6 +6,7 @@ import './home.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllGenres, getVideogames } from '../redux/actions';
 import { useEffect, useState } from 'react';
+import ModalCreateGame from '../components/modal/ModalCreateGame';
 
 const VIDEOGAMES_PER_PAGE = 15;
 
@@ -14,7 +15,7 @@ export const HomePage = () => {
 	const [genreName, setGenreName] = useState('');
 	const [inputValue, setInputValue] = useState('');
 	const [sort, setSort] = useState('');
-	// const [sortRating, setSortRating] = useState('');
+	const [isOpen, setIsOpen] = useState(false);
 
 	const genres = useSelector(state => state.genres);
 	const allVideogames = useSelector(state => state.videogames);
@@ -79,6 +80,7 @@ export const HomePage = () => {
 				setGenreName={setGenreName}
 				inputValue={inputValue}
 				setInputValue={setInputValue}
+				setIsOpen={setIsOpen}
 			/>
 			<Sidebar
 				genres={genres}
@@ -92,6 +94,7 @@ export const HomePage = () => {
 				nextPage={nextPage}
 				setSort={setSort}
 			/>
+			{isOpen && <ModalCreateGame setIsOpen={setIsOpen} genres={genres} />}
 			<Footer />
 		</main>
 	);

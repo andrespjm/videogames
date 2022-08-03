@@ -1,7 +1,6 @@
 import styles from './card.module.css';
-// import { FaStar, FaLaptop, FaXbox, FaPlaystation } from 'react-icons/fa';
 import { FaStar, FaGamepad } from 'react-icons/fa';
-// import { SiNintendo } from 'react-icons/si';
+import OptionalImage from '../../assets/img/background-optional.jpg';
 
 export const Card = props => {
 	return (
@@ -14,7 +13,11 @@ export const Card = props => {
 			</div>
 			<div
 				className={styles.media}
-				style={{ backgroundImage: `url(${props.image})` }}
+				style={
+					props.image
+						? { backgroundImage: `url(${props.image})` }
+						: { backgroundImage: `url(${OptionalImage})` }
+				}
 			></div>
 			<div className={styles.description}>
 				<h2>
