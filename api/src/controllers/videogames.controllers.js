@@ -67,21 +67,35 @@ const getVideogames = async name => {
 };
 
 const getVideogameById = async id => {
-	if (!regex.test(id)) throw new Error('Ingrese un id válido');
+	// if (!regex.test(id)) throw new Error('Ingrese un id válido');
 	const response = await fetch(
 		`https://api.rawg.io/api/games/${id}?key=${API_KEY}&`
 	);
 
-	if (!response.ok) {
-		const message = `An error has occured: ${response.status}`;
-		throw new Error(message);
-	}
+	// if (!response.ok) {
+	// 	const message = `An error has occured: ${response.status}`;
+	// 	throw new Error(message);
+	// }
 
 	const videogame = await response.json();
 
-	if (!videogame) throw new Error('El juego no ha sido encontrado');
-
-	return videogame;
+	if (Object.keys(videogame) === 0) {
+		const getVideogames = await Videogame.find({
+			where: {
+				id: id,
+			},
+			include: [
+				{
+					model: Genres,
+					as: 'genres',
+				},
+			],
+		});
+		if (!getVideogames) throw new Error('El juego no ha sido encontrado');
+		return getVideogames;
+	} else {
+		return videogame;
+	}
 };
 
 const createNewVideogame = async req => {

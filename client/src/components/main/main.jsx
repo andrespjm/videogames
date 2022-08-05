@@ -14,6 +14,15 @@ export const Main = ({ videogames, prevPage, nextPage, setSort }) => {
 		<article className='main'>
 			<div className={styles.optionsTop}>
 				<h1 className={styles.sectioName}>Trending now</h1>
+				<div>
+					<select onChange={handleChange}>
+						<option value='released' hidden>
+							Released
+						</option>
+						<option value='actuales'>Actuales</option>
+						<option value='antiguas'>Antiguas</option>
+					</select>
+				</div>
 				<div className={styles.sort}>
 					Sort by:&nbsp;
 					<select onChange={handleChange}>
@@ -48,7 +57,7 @@ export const Main = ({ videogames, prevPage, nextPage, setSort }) => {
 							{videogame}
 						</p>
 					) : (
-						<Link to='/' key={i}>
+						<Link to={`/videogame/${videogame.id}`} key={i}>
 							<Card
 								name={videogame.name}
 								image={videogame.background_image}

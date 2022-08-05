@@ -1,5 +1,6 @@
 export const GET_ALL_GENRES = 'GET_ALL_GENRES';
 export const GET_VIDEOGAMES = 'GET_VIDEOGAMES';
+export const GET_VIDEOGAME_DETAIL = 'GET_VIDEOGAME_DETAIL';
 export const GET_ALL_PLATFORMS = 'GET_ALL_PLATFORMS';
 export const CREATE_VIDEOGAME = 'CREATE_VIDEOGAME';
 
@@ -11,11 +12,23 @@ const showError = status => {
 export const getAllGenres = () => {
 	return async dispatch => {
 		const res = await fetch('http://localhost:3001/genres');
-		if (!res.ok) showError(res.status);
+		if (!res.ok) showError(res);
 
 		const data = await res.json();
 		dispatch({
 			type: GET_ALL_GENRES,
+			payload: data,
+		});
+	};
+};
+
+export const getVideogameDetail = id => {
+	return async dispatch => {
+		const res = await fetch(`http://localhost:3001/videogames/${id}`);
+		if (!res.ok) showError(res);
+		const data = await res.json();
+		dispatch({
+			type: GET_VIDEOGAME_DETAIL,
 			payload: data,
 		});
 	};

@@ -35,6 +35,10 @@ export const HomePage = () => {
 		return x.rating - y.rating;
 	}
 
+	function SortArrayReleased(x, y) {
+		return x.released.localeCompare(y.released);
+	}
+
 	const filteredVideogames = () => {
 		if (genreName) {
 			const gamesPerGenre = allVideogames.filter(game =>
@@ -60,6 +64,10 @@ export const HomePage = () => {
 			return videogames.sort(SortArrayRating).reverse();
 		} else if (sort === 'lowest') {
 			return videogames.sort(SortArrayRating);
+		} else if (sort === 'actuales') {
+			return videogames.sort(SortArrayReleased).reverse();
+		} else if (sort === 'antiguas') {
+			return videogames.sort(SortArrayReleased);
 		} else {
 			return videogames;
 		}
@@ -88,12 +96,14 @@ export const HomePage = () => {
 				setCurrentPage={setCurrentPage}
 				setInputValue={setInputValue}
 			/>
+
 			<Main
 				videogames={videogames}
 				prevPage={prevPage}
 				nextPage={nextPage}
 				setSort={setSort}
 			/>
+
 			{isOpen && <ModalCreateGame setIsOpen={setIsOpen} genres={genres} />}
 			<Footer />
 		</main>
