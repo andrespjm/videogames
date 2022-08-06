@@ -1,8 +1,12 @@
 require('dotenv').config();
 const fetch = require('cross-fetch');
 const { API_KEY } = process.env;
-const regex = /^[0-9]+$/;
+const { validate: isValidateUUID } = require('uuid');
+
+const regexUUID =
+	/^[0-9a-f]{8}-?[0-9a-f]{4}-?[1-5][0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$/i;
 const { Videogame, Genres, Op } = require('../db');
+const { decodeB64 } = require('../helpers/helpers');
 
 const searchVideogamesDB = async name => {
 	const getVideogames = await Videogame.findAll({
@@ -65,24 +69,16 @@ const getVideogames = async name => {
 
 	return totalResults;
 };
-
-const getVideogameById = async id => {
-	// if (!regex.test(id)) throw new Error('Ingrese un id válido');
-	const response = await fetch(
-		`https://api.rawg.io/api/games/${id}?key=${API_KEY}&`
-	);
-
-	// if (!response.ok) {
-	// 	const message = `An error has occured: ${response.status}`;
-	// 	throw new Error(message);
-	// }
-
-	const videogame = await response.json();
-
-	if (Object.keys(videogame) === 0) {
-		const getVideogames = await Videogame.find({
+/**
+ *
+ * @param {*} uuid encode base64
+ */
+const getVideogameById = async uuid => {
+	const id = decodeB64(uuid);
+	if (isValidateUUID(id)) {
+		const gameDB = await Videogame.findOne({
 			where: {
-				id: id,
+				id,
 			},
 			include: [
 				{
@@ -91,11 +87,20 @@ const getVideogameById = async id => {
 				},
 			],
 		});
-		if (!getVideogames) throw new Error('El juego no ha sido encontrado');
-		return getVideogames;
-	} else {
-		return videogame;
+		if (!gameDB) throw new Error('Game not found!');
+		return gameDB;
 	}
+
+	const res = await fetch(
+		`https://api.rawg.io/api/games/${id}?key=${API_KEY}&`
+	);
+	if (!res.ok) {
+		const message = `An error has occured: ${res.status}`;
+		throw new Error(message);
+	}
+
+	const gameApi = await res.json();
+	return gameApi;
 };
 
 const createNewVideogame = async req => {

@@ -16,7 +16,7 @@ export const Videogame = () => {
 		dispatch(getVideogameDetail(id));
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [id]);
 	return (
 		<>
 			<main className={styles.container}>

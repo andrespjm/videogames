@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { encodeB64 } from '../../helpers/helpers';
 import { Card } from '../card/Card';
 import { Loader } from '../loader/Loader';
 import { Paginator } from '../paginator/Paginator';
@@ -57,7 +58,7 @@ export const Main = ({ videogames, prevPage, nextPage, setSort }) => {
 							{videogame}
 						</p>
 					) : (
-						<Link to={`/videogame/${videogame.id}`} key={i}>
+						<Link to={`/videogame/${encodeB64(videogame.id)}`} key={i}>
 							<Card
 								name={videogame.name}
 								image={videogame.background_image}
