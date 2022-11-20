@@ -1,0 +1,47 @@
+:root{
+    --text-color-home:snow;
+}
+
+.sidebar{
+    padding: 0 20px;
+}
+
+.sidebar h1{
+    color: var(--text-color-home);
+    text-transform: capitalize;
+    border-bottom: 1px solid var(--text-color-home);
+}
+
+.sidebar .links{
+    background-color: #202020;
+    margin: 2px 0;
+    padding:18px;
+    border-radius: 10px;
+}
+
+.actived, .sidebar .links:hover{
+    background-color:#333 !important;
+    border: 1px solid #f0f0f0
+}
+
+
+
+.sideMenu .subTitles{
+    color: var(--text-color-home);
+    margin-top: 15px;
+}
+
+.sideMenu {
+    display: flex;
+    flex-direction: column;
+}
+
+.sideMenu a{
+    color: var(--text-color-home);
+    font-size: 1.3em;
+    padding: 8px;
+    text-align: center;
+    text-decoration: none;
+}
+
+

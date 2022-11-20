@@ -1,0 +1,73 @@
+:root{
+    --text-color:rgb(163, 163, 163);
+}
+
+.searcher{
+    background-color: #333;
+    color: var(--text-color);
+    display:flex;
+    align-items: center;
+    padding:0 10px;
+    margin: 0 10px;
+    width: 70%;
+    border-radius: 30px;
+    transition: ease-in .4s;
+}
+
+.iconSearch{
+    margin-left: 10px;
+}
+
+.searcher .inp{
+    background-color: #333;
+    color: var(--text-color);
+    font-size:1.2em;
+    padding: 15px 10px;
+    outline: none;
+    border: none;
+    transition: ease-in .4s;
+    width:100%;
+}
+
+.searcher:focus-within, .inp:focus{
+    background: snow;
+    color: #333;
+}
+
+.inp:focus ~.searchingKeys{
+    opacity: 0;
+}
+
+.searcher:hover .inp, .searcher:hover{
+    background: snow;
+    color: #333;
+}
+
+.searcher:hover .searchingKeys{
+    opacity: 0;
+}
+
+.searchingKeys{
+    margin-right: 10px;
+}
+
+.searchingKeys
+span:first-child, 
+.searchingKeys
+span:last-child{
+    font-size: small;
+    padding: 3px 5px;
+    border: 1px solid var(--text-color);
+    border-radius: 5px;
+}
+
+.searchingKeys
+span:nth-child(2){
+    margin: 0 5px;
+}
+
+@media screen and (max-width: 600px) {
+    .searcher{
+        width:100%;
+    }
+}

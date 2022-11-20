@@ -1,0 +1,51 @@
+.navbar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.navLogo{
+    color: snow;
+    display: flex;
+    align-items: center;
+}
+.navLogo span{
+    font-family: 'Rubik Glitch', cursive;
+    font-size: 1.7em;
+    margin-left: 5px;
+}
+
+.navLogo > img {
+    width: 50px;
+    height: 45px;
+}
+
+.navCreateForm{
+    color: snow;
+}
+
+.navCreateForm:hover{
+    color: yellow;
+}
+
+.navAcount a{
+    color: snow;
+    font-size: 1em;
+    font-weight: bold;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.navAcount a:first-child{
+    margin-right: 25px;
+}
+
+.navAcount a:hover{
+    border-bottom: 2px solid snow;
+}
+
+@media screen and (max-width: 600px) {
+    .navbar{
+        flex-direction: column;
+        row-gap: 20px;
+    }
+}
